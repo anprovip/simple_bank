@@ -3,22 +3,22 @@ package db
 import (
 	"context"
 	"os"
+	"simplebank/util"
 	"testing"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-)
-
-const (
-	dbDriver        = "pgx"
-	defaultDBSource = "postgresql://root:213077@localhost:5432/simple_bank?sslmode=disable"
+	_ "github.com/lib/pq"
 )
 
 var testQueries *Queries
 var testDB *pgxpool.Pool
 
 func TestMain(m *testing.M) {
-	var err error
-	testDB, err = pgxpool.New(context.Background(), defaultDBSource)
+	config, err := util.LoadConfig("../.")
+	if err != nil {
+		panic(err)
+	}
+	testDB, err = pgxpool.New(context.Background(), config.DBSource)
 	if err != nil {
 		panic(err)
 	}
