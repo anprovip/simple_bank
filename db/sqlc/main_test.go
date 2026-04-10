@@ -14,7 +14,7 @@ var testQueries *Queries
 var testDB *pgxpool.Pool
 
 func TestMain(m *testing.M) {
-	config, err := util.LoadConfig("../.")
+	config, err := util.LoadConfig("../..")
 	if err != nil {
 		panic(err)
 	}

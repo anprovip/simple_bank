@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"simplebank/api"
-	"simplebank/db"
+	db "simplebank/db/sqlc"
 	"simplebank/util"
 
 	"github.com/jackc/pgx/v5/pgxpool"
