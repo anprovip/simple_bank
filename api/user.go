@@ -4,6 +4,7 @@ import (
 	"net/http"
 	db "simplebank/db/sqlc"
 	"simplebank/util"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,11 +17,11 @@ type createUserRequest struct {
 }
 
 type createUserResponse struct {
-	Username          string `json:"username"`
-	FullName          string `json:"full_name"`
-	Email             string `json:"email"`
-	PasswordChangedAt string `json:"password_changed_at"`
-	CreatedAt         string `json:"created_at"`
+	Username          string    `json:"username"`
+	FullName          string    `json:"full_name"`
+	Email             string    `json:"email"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
+	CreatedAt         time.Time `json:"created_at"`
 }
 
 func (server *Server) createUser(ctx *gin.Context) {
@@ -56,8 +57,8 @@ func (server *Server) createUser(ctx *gin.Context) {
 		Username:          user.Username,
 		FullName:          user.FullName,
 		Email:             user.Email,
-		PasswordChangedAt: user.PasswordChangedAt.Time.String(),
-		CreatedAt:         user.CreatedAt.Time.String(),
+		PasswordChangedAt: user.PasswordChangedAt.Time,
+		CreatedAt:         user.CreatedAt.Time,
 	}
 	ctx.JSON(http.StatusOK, rsp)
 }
