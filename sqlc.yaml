@@ -6,7 +6,7 @@ sql:
     queries: "./db/query/"
     codegen:
       - plugin: "golang"
-        out: "./db"
+        out: "./db/sqlc"
         options:
           package: "db"
           sql_package: "pgx/v5"
