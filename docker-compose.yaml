@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:12-alpine
+    container_name: postgres12
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=213077
+      - POSTGRES_DB=simple_bank
+    ports:
+      - "5432:5432"
+    networks:
+      - bank-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: simple_bank_api
+    environment:
+      - DB_SOURCE=postgresql://root:213077@postgres:5432/simple_bank?sslmode=disable
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    # wait-for.sh sẽ đợi postgres:5432 sẵn sàng rồi mới chạy start.sh
+    entrypoint: [ "/app/wait-for.sh", "postgres:5432", "--", "/app/start.sh" ]
+    command: [ "/app/main" ]
+    networks:
+      - bank-network
+
+networks:
+  bank-network:
+    driver: bridge
