@@ -1,1 +1,3 @@
 docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:213077@postgres12:5432/simple_bank?sslmode=disable" simplebank:lastest
+
+migrate create -ext sql -dir db/migration -seq add_sessions
