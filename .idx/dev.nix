@@ -1,36 +1,39 @@
 { pkgs, ... }: {
-  # 1. Channel
   channel = "stable-24.05";
 
-  # 2. Cài đặt các gói công cụ
   packages = [
+    # core
     pkgs.go
+    pkgs.gnumake
+
+    # docker
     pkgs.docker
     pkgs.docker-compose
-    pkgs.gnumake
+
+    # database tools
+    pkgs.migrate
+    pkgs.sqlc
+
+    # testing
+    pkgs.mockgen
+
+    # protobuf + grpc
     pkgs.protobuf
+    pkgs.protoc-gen-go
+    pkgs.protoc-gen-go-grpc
+    pkgs.grpc-gateway
+
+    # grpc client
     pkgs.evans
   ];
 
-  # 3. KÍCH HOẠT DOCKER (Đặt ở đây, ngoài block idx)
   services.docker.enable = true;
 
-  # 4. Các cấu hình riêng cho IDX
+  env = {};
+
   idx = {
     extensions = [
-      "golang.Go"
-      "ms-azuretools.vscode-docker"
+      "golang.go"
     ];
-
-    previews = {
-      enable = true;
-      previews = {
-        # web = {
-        #   command = ["go" "run" "main.go"];
-        #   manager = "web";
-        #   env = { PORT = "$PORT"; };
-        # };
-      };
-    };
   };
 }

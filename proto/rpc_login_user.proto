@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package db;
+package pb;
 
-import "google/protobuf/timestamp.proto";
 import "user.proto";
+import "google/protobuf/timestamp.proto";
 
 option go_package = "simplebank/pb";
 

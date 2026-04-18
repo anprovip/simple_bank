@@ -1,4 +1,3 @@
-# Sửa dòng này từ 1.23 thành 1.25 hoặc dùng golang:alpine để lấy bản mới nhất
 FROM golang:1.25-alpine3.21 AS builder
 WORKDIR /app
 COPY . .
